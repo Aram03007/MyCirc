@@ -105,6 +105,8 @@ public class MyView  extends View {
                 break;
             }
             case MotionEvent.ACTION_UP:
+                mActivePointers.clear();
+
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL: {
 //                mActivePointers.remove(pointerId);
@@ -121,15 +123,15 @@ public class MyView  extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        mActivePointers.clear();
 
 
         // draw all pointers
         for (int size = circles.size(), i = 0; i < size; i++) {
             Circle circle = circles.get(i);
-            if (circle != null)
+            if (circle != null) {
                 mPaint.setColor(circle.getColor());
-            canvas.drawCircle(circle.getCenterX(), circle.getCenterY(), RADIUS, mPaint);
+                canvas.drawCircle(circle.getCenterX(), circle.getCenterY(), RADIUS, mPaint);
+            }
         }
         canvas.drawText("Total pointers: " + mActivePointers.size(), 10, 40, textPaint);
 
